@@ -17,5 +17,5 @@ use App\Http\Controllers\NewsController;
 
 Route::prefix('v1')->group(function () {
     Route::get('/news', [NewsController::class, 'index']);
-    Route::get('/news', [NewsController::class, 'search'])->whereAlpha('query');
+    Route::get('/search', [NewsController::class, 'search'])->whereAlpha('query');
 });

@@ -3,27 +3,30 @@
 namespace App\Http\Controllers;
 
 use Support\NewsApi;
+
+use Support\NewsData;
 use Illuminate\Http\Request;
 use App\Http\Resources\News;
+use Domains\Actions\NewsApiSourcing;
 use Illuminate\Support\Facades\Cache;
 
 class NewsController extends Controller
 {
     public function index(Request $request)
     {
-        if (Cache::has('news.top-headlines')) {
-            /**
-             * Cache for increase Performance , save articles result for two hours
-             */
-            $response = Cache::get("news.top-headlines");
+//        if (Cache::has('news.top-headlines')) {
+//            /**
+//             * Cache for increase Performance , save articles result for two hours
+//             */
+//            $response = Cache::get("news.top-headlines");
+//
+//            return News::collection($response);
+//        }
 
-            return News::collection($response);
-        }
-
-        $response = NewsApi::getNewsTopHeadlines();
+        $news = app(NewsApiSourcing::class);
 
         /** @var NewsApi Facade $response */
-        return News::collection($response)->collection;
+        //  return News::collection($response)->collection;
 
     }
 
